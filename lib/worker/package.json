@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "alexa-sdk": "^1.0.14",
+    "bitscoop-sdk": "^0.2.0",
+    "lodash": "^4.6.1",
+    "moment": "^2.18.1",
+    "mysql": "^2.13.0",
+    "nunjucks": "^3.0.0",
+    "sequelize": "^3.30.4"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+
+  "name": "GitHub Issues (BitScoop Alexa Demo)",
+  "url": "https://api.github.com",
+
+  "endpoints": {
+    "Issues": {
+      "GET": {
+        "method": "GET",
+        "route": "/repos/{{ parameters.user }}/{{ parameters.repo }}/issues",
+        "parameters": {
+          "per_page": 100
+        },
+        "model": {
+          "key": "id",
+          "fields": {
+            "id": "integer",
+            "number": "integer",
+            "url": "string",
+            "repository_url": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "version": "1.0",
+  "name": "Twitter",
+  "description": "Online social networking service.",
+  "url": "https://api.twitter.com",
+  "tags": [
+	"social"
+  ],
+  "auth": {
+	"type": "oauth1",
+	"version": "1.0a",
+	"signature_method": "HMAC-SHA1",
+	"redirect_url": "*https://twitter.com",
+	"authorization_url": "https://api.twitter.com/oauth/authenticate",
+	"request_token": "https://api.twitter.com/oauth/request_token",
+	"access_token": "https://api.twitter.com/oauth/access_token",
+	"auth_key": "***INSERT AUTH KEY HERE***",
+	"auth_secret": "***INSERT AUTH SECRET HERE***"
+  },
+  "meta": {
+	"uniqueness_location": "id_str",
+	"default_name_location": "screen_name",
+	"endpoint": {
+	  "method": "GET",
+	  "parameters": {
+		"include_entities": {
+		  "description": "Whether or not to include the user's last tweet",
+		  "value": false
+		}
+	  },
+	  "route": {
+		"data": "",
+		"path": "1.1/account/verify_credentials.json"
+	  },
+	  "model": {
+		"key": "id_str",
+		"fields": {
+		  "id_str": "string",
+		  "name": "string",
+		  "screen_name": "string"
+		}
+	  }
+	}
+  },
+  "endpoints": {
+	"Tweets": {
+	  "method": "GET",
+	  "parameters": {
+		"count": {
+		  "description": "Pagination counts",
+		  "value": 200
+		}
+	  },
+	  "single": false,
+	  "collection": {
+		"route": {
+		  "data": "",
+		  "path": "1.1/statuses/user_timeline.json"
+		}
+	  }
+	}
+  }
+}

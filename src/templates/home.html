@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+
+		<link rel="shortcut icon" href="https://assets.bitscoop.com/1457056861/images/icons/favicon.ico" />
+		<link rel="icon" type="image/png" href="https://assets.bitscoop.com/1457056861/images/icons/favicon-32x32.png" sizes="32x32" />
+		<link rel="icon" type="image/png" href="https://assets.bitscoop.com/1457056861/images/icons/favicon-96x96.png" sizes="96x96" />
+		<link rel="icon" type="image/png" href="https://assets.bitscoop.com/1457056861/images/icons/favicon-16x16.png" sizes="16x16" />
+
+		<title>Brix BitScoop</title>
+
+		<meta name="description" content="Brix BitScoop" />
+
+		<!-- RequireJS configuration -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.3/require.min.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+		<script type="text/javascript" src="https://s3.amazonaws.com/alexa-2-demo/static/js/site.min.js" ></script>
+
+		<!-- External fonts -->
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Quicksand:400|Roboto:300,400,700|Open+Sans:200,300,400,700|Source+Sans+Pro:300,400,700" />
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+		<link rel="stylesheet" type="text/css" href="https://brix-bitscoop-static.s3.amazonaws.com/css/site.min.css" />
+
+		<script type="text/javascript">
+			'use strict';
+
+			$(document).ready(function() {
+				$(document).on('click', 'button.destroy', function(e) {
+					var service = $(this).data('service');
+
+					$.ajax({
+						url: '/prod/connections?service=' + service,
+						method: 'DELETE'
+					}).done(function(data, xhr, response) {
+						$('button.destroy[data-service="' + service + '"]').remove();
+						$('div.service.' + service).append('<a href="/prod/connections"><button class="create">Create ' + service[0].toUpperCase() + service.slice(1) + ' Connection</button></a>');
+					}).fail(function(data, xhr, response) {
+						console.log(data);
+					});
+				});
+
+				$(document).on('click', 'div.delete > button', function(e) {
+					$.ajax({
+						url: '/prod/users',
+						type: 'DELETE',
+						dataType: 'text'
+					}).done(function(data, xhr, response) {
+						window.location.href = '/';
+					}).fail(function(data, xhr, response) {
+						console.log(data);
+					});
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+		<div class="header flexbox flex-column flex-x-center">
+			{% if user %}
+				<div class="service dribbble">
+					{% if user.dribbbleConnectionId != null %}
+						<button class="destroy" data-service="dribbble">Disconnect from Dribbble</button>
+					{% else %}
+						<a href="/prod/connections?service=dribbble">
+							<button class="create" data-service="dribbble">Connect to Dribbble</button>
+						</a>
+					{% endif %}
+				</div>
+
+				<div class="service facebook">
+					{% if user.facebookConnectionId != null %}
+						<button class="destroy" data-service="facebook">Disconnect from Facebook</button>
+					{% else %}
+						<a href="/prod/connections?service=facebook">
+							<button class="create" data-service="facebook">Connect to Facebook</button>
+						</a>
+					{% endif %}
+				</div>
+
+				<div class="service github">
+					{% if user.githubConnectionId != null %}
+						<button class="destroy" data-service="github">Disconnect from GitHub</button>
+					{% else %}
+						<a href="/prod/connections?service=github">
+							<button class="create" data-service="github">Connect to GitHub</button>
+						</a>
+					{% endif %}
+				</div>
+
+				<div class="service google">
+					{% if user.googleConnectionId != null %}
+						<button class="destroy" data-service="google">Disconnect from Google</button>
+					{% else %}
+						<a href="/prod/connections?service=google">
+							<button class="create" data-service="google">Connect to Google</button>
+						</a>
+					{% endif %}
+				</div>
+
+				<!--<div class="service linkedin">-->
+				<!--	{% if user.linkedInConnectionId != null %}-->
+				<!--		<button class="destroy" data-service="linkedin">Disconnect from LinkedIn</button>-->
+				<!--	{% else %}-->
+				<!--		<a href="/prod/connections?service=linkedin">-->
+				<!--			<button class="create" data-service="linkedIn">Connect to LinkedIn</button>-->
+				<!--		</a>-->
+				<!--	{% endif %}-->
+				<!--</div>-->
+
+				<div class="service twitter">
+					{% if user.twitterConnectionId != null %}
+						<button class="destroy" data-service="twitter">Disconnect from Twitter</button>
+					{% else %}
+						<a href="/prod/connections?service=twitter">
+							<button class="create" data-service="twitter">Connect to Twitter</button>
+						</a>
+					{% endif %}
+				</div>
+
+				<div class="logout">
+					<a href="/prod/logout"><button><i class="fa fa-sign-out"></i> <span>Log out</span></button></a>
+				</div>
+
+				<div class="delete">
+					<button><i class="fa fa-trash"></i> <span>Delete account</span></button>
+				</div>
+			{% else %}
+				<div class="logins flexbox flex-column flex-x-center">
+					<a href="/prod/login?service=google"><button><i class="fa fa-google"></i> <span>Log In with Google</span></button></a>
+					<a href="/prod/signup?service=google"><button><i class="fa fa-google"></i> <span>Sign Up with Google</span></button></a>
+				</div>
+			{% endif %}
+		</div>
+	</body>
+	<footer>
+		<div class="copyright">Powered by the BitScoop platform</div>
+	</footer>
+</html>
