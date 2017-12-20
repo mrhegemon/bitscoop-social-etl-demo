@@ -75,6 +75,10 @@ module.exports = function(event, context, callback) {
 					connectionId = 'linkedinConnectionId';
 					break;
 
+				case 'reddit':
+					connectionId = 'redditConnectionId';
+					break;
+
 				case 'twitter':
 					connectionId = 'twitterConnectionId';
 					break;

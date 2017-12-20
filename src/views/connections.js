@@ -87,6 +87,12 @@ function create(event, context, callback) {
 					connectionId = 'linkedinConnectionId';
 					break;
 
+				case 'reddit':
+					mapId = process.env.REDDIT_MAP_ID;
+					options.redirect_url += '?service=reddit';
+					connectionId = 'redditConnectionId';
+					break;
+
 				case 'twitter':
 					mapId = process.env.TWITTER_MAP_ID;
 					options.redirect_url += '?service=twitter';
@@ -189,6 +195,11 @@ function del(event, context, callback) {
 			let bitscoop = global.env.bitscoop;
 
 			switch(service) {
+				case 'dribbble':
+					connectionId = result.dribbbleConnectionId;
+					options.dribbbleConnectionId = null;
+					break;
+
 				case 'facebook':
 					connectionId = result.facebookConnectionId;
 					options.facebookConnectionId = null;
@@ -207,6 +218,11 @@ function del(event, context, callback) {
 				case 'linkedin':
 					connectionId = result.linkedinConnectionId;
 					options.linkedinConnectionId = null;
+					break;
+
+				case 'reddit':
+					connectionId = result.redditConnectionId;
+					options.redditConnectionId = null;
 					break;
 
 				case 'twitter':
@@ -239,12 +255,7 @@ function del(event, context, callback) {
 
 			console.log(err);
 
-			callback(null, {
-				statusCode: 500,
-				body: err.toString()
-			});
-
-			return Promise.reject(err);
+			return Promise.resolve();
 		});
 }
 

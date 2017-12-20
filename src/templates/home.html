@@ -4,14 +4,14 @@
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 
-		<link rel="shortcut icon" href="https://assets.bitscoop.com/1457056861/images/icons/favicon.ico" />
-		<link rel="icon" type="image/png" href="https://assets.bitscoop.com/1457056861/images/icons/favicon-32x32.png" sizes="32x32" />
-		<link rel="icon" type="image/png" href="https://assets.bitscoop.com/1457056861/images/icons/favicon-96x96.png" sizes="96x96" />
-		<link rel="icon" type="image/png" href="https://assets.bitscoop.com/1457056861/images/icons/favicon-16x16.png" sizes="16x16" />
+		<link rel="shortcut icon" href="https://joinbrix.com/images/favicon-icon.png" />
+		<link rel="icon" type="image/png" href="https://joinbrix.com/images/favicon-icon.png" sizes="32x32" />
+		<link rel="icon" type="image/png" href="https://joinbrix.com/images/favicon-icon.png" sizes="96x96" />
+		<link rel="icon" type="image/png" href="https://joinbrix.com/images/favicon-icon.png" sizes="16x16" />
 
-		<title>Brix BitScoop</title>
+		<title>Brix</title>
 
-		<meta name="description" content="Brix BitScoop" />
+		<meta name="description" content="Brix" />
 
 		<!-- RequireJS configuration -->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.3/require.min.js"></script>
@@ -37,7 +37,7 @@
 						method: 'DELETE'
 					}).done(function(data, xhr, response) {
 						$('button.destroy[data-service="' + service + '"]').remove();
-						$('div.service.' + service).append('<a href="/prod/connections"><button class="create">Create ' + service[0].toUpperCase() + service.slice(1) + ' Connection</button></a>');
+						$('div.service.' + service).append('<a href="/prod/connections?service=' + service + '"><button class="create">Connect to ' + service[0].toUpperCase() + service.slice(1) + '</button></a>');
 					}).fail(function(data, xhr, response) {
 						console.log(data);
 					});
@@ -60,6 +60,8 @@
 
 	<body>
 		<div class="header flexbox flex-column flex-x-center">
+			<img src="https://brix-bitscoop-static.s3.amazonaws.com/images/shokse-logo.png" />
+
 			{% if user %}
 				<div class="service dribbble">
 					{% if user.dribbbleConnectionId != null %}
@@ -110,6 +112,16 @@
 				<!--		</a>-->
 				<!--	{% endif %}-->
 				<!--</div>-->
+
+				<div class="service reddit">
+					{% if user.redditConnectionId != null %}
+					<button class="destroy" data-service="reddit">Disconnect from reddit</button>
+					{% else %}
+					<a href="/prod/connections?service=reddit">
+						<button class="create" data-service="reddit">Connect to reddit</button>
+					</a>
+					{% endif %}
+				</div>
 
 				<div class="service twitter">
 					{% if user.twitterConnectionId != null %}

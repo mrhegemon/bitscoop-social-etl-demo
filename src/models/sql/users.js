@@ -36,6 +36,10 @@ let schema = {
 		type: Sequelize.STRING,
 		field: 'linkedin_connection_id'
 	},
+	redditConnectionId: {
+		type: Sequelize.STRING,
+		field: 'reddit_connection_id'
+	},
 	twitterConnectionId: {
 		type: Sequelize.STRING,
 		field: 'twitter_connection_id'
