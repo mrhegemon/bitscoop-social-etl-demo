@@ -48,14 +48,51 @@
 	  "parameters": {
 		"count": {
 		  "description": "Pagination counts",
-		  "value": 200
-		}
+		  "value": "{{ parameters.count }}"
+		},
+		"since_id": "{{ parameters.since_id }}",
+		"max_id": "{{ parameters.max_id }}",
+		"trim_user": true
 	  },
 	  "single": false,
 	  "collection": {
 		"route": {
 		  "data": "",
 		  "path": "1.1/statuses/user_timeline.json"
+		}
+	  }
+	},
+	"Friends": {
+	  "method": "GET",
+	  "parameters": {
+		"count": {
+		  "description": "Pagination counts",
+		  "value": "{{ parameters.count }}"
+		},
+		"cursor": "{{ parameters.cursor }}"
+	  },
+	  "single": false,
+	  "collection": {
+		"route": {
+		  "data": "users",
+		  "path": "1.1/friends/list.json"
+		}
+	  }
+	},
+	"FriendsRaw": {
+	  "method": "GET",
+	  "parameters": {
+		"count": {
+		  "description": "Pagination counts",
+		  "value": "{{ parameters.count }}"
+		},
+		"cursor": "{{ parameters.cursor }}"
+	  },
+	  "single": false,
+	  "collection": {
+		"route": {
+		  "data": "",
+		  "path": "1.1/friends/list.json"
 		}
 	  }
 	}

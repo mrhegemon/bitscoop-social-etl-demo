@@ -40,9 +40,10 @@
           "https://www.googleapis.com/auth/gmail.readonly"
         ],
         "parameters": {
+          "maxResults": "{{ parameters.max_results }}",
           "pageToken": {
             "description": "Token for the next page in the results",
-            "value": "{{ parameters.pageToken }}"
+            "value": "{{ parameters.page_token }}"
           },
           "q": {
             "description": "QueryString",
@@ -62,7 +63,7 @@
             "id": "string",
             "message": {
               "type": "related",
-              "ref": "GmailMessage",
+              "ref": "GmailMessages",
               "many": false,
               "reverse": {
                 "identifier": "{{ model.id }}"
@@ -72,7 +73,7 @@
         }
       }
     },
-    "GmailMessage": {
+    "GmailMessages": {
       "GET": {
         "method": "GET",
         "scopes": [
@@ -96,7 +97,7 @@
         "parameters": {
           "pageToken": {
             "description": "A token indicating which page of results to retrieve",
-            "value": 1
+            "value": "{{ parameters.page_token }}"
           },
           "includeRemoved": {
             "description": "Whether to include file deletions or files to which the user has lost access",
@@ -104,17 +105,42 @@
           },
           "pageSize": {
             "description": "Number of results returned in a page",
-            "value": 1000
-          },
-          "fields": {
-            "description": "Which fields to include in the response",
-            "value": "changes,newStartPageToken,nextPageToken"
+            "value": "{{ parameters.page_size }}"
           }
         },
         "single": false,
         "collection": {
           "route": {
             "data": "changes",
+            "path": "drive/v3/changes"
+          }
+        }
+      }
+    },
+    "DriveChangesRaw": {
+      "GET": {
+        "method": "GET",
+        "scopes": [
+          "https://www.googleapis.com/auth/drive.readonly"
+        ],
+        "parameters": {
+          "pageToken": {
+            "description": "A token indicating which page of results to retrieve",
+            "value": "{{ parameters.page_token }}"
+          },
+          "includeRemoved": {
+            "description": "Whether to include file deletions or files to which the user has lost access",
+            "value": true
+          },
+          "pageSize": {
+            "description": "Number of results returned in a page",
+            "value": "{{ parameters.page_size }}"
+          }
+        },
+        "single": false,
+        "collection": {
+          "route": {
+            "data": "",
             "path": "drive/v3/changes"
           }
         }
@@ -127,9 +153,16 @@
           "https://www.googleapis.com/auth/calendar.readonly"
         ],
         "parameters": {
+          "showHidden": "{{ parameters.show_hidden }}",
+          "showDeleted": "{{ parameters.show_deleted }}",
+          "syncToken": "{{ parameters.sync_token }}",
+          "pageToken": {
+            "description": "Page token for pagination",
+            "value": "{{ parameters.page_token }}"
+          },
           "maxResults": {
             "description": "Number of results returned in a page",
-            "value": 250
+            "value": "{{ parameters.max_results }}"
           }
         },
         "single": false,
@@ -168,6 +201,60 @@
           "route": {
             "data": "",
             "path": "calendar/v3/calendars/{{ parameters.calendar_id }}/events"
+          }
+        }
+      }
+    },
+    "CalendarListRaw": {
+      "GET": {
+        "method": "GET",
+        "scopes": [
+          "https://www.googleapis.com/auth/calendar.readonly"
+        ],
+        "parameters": {
+          "showHidden": "{{ parameters.show_hidden }}",
+          "showDeleted": "{{ parameters.show_deleted }}",
+          "syncToken": "{{ parameters.sync_token }}",
+          "pageToken": {
+            "description": "Page token for pagination",
+            "value": "{{ parameters.page_token }}"
+          },
+          "maxResults": {
+            "description": "Number of results returned in a page",
+            "value": "{{ parameters.max_results }}"
+          }
+        },
+        "single": false,
+        "collection": {
+          "route": {
+            "data": "",
+            "path": "calendar/v3/users/me/calendarList"
+          }
+        }
+      }
+    },
+    "GmailInboxRaw": {
+      "GET": {
+        "method": "GET",
+        "scopes": [
+          "https://www.googleapis.com/auth/gmail.readonly"
+        ],
+        "parameters": {
+          "maxResults": "{{ parameters.max_results }}",
+          "pageToken": {
+            "description": "Token for the next page in the results",
+            "value": "{{ parameters.page_token }}"
+          },
+          "q": {
+            "description": "QueryString",
+            "value": "{{ parameters.q }}"
+          }
+        },
+        "single": false,
+        "collection": {
+          "route": {
+            "data": "",
+            "path": "gmail/v1/users/me/messages"
           }
         }
       }

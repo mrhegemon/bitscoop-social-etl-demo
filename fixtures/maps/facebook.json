@@ -28,63 +28,38 @@
 		  "user_posts"
 		],
 		"route": {
-		  "data": "",
+		  "data": "data",
 		  "path": "/me/feed"
 		},
 		"parameters": {
+		  "until": "{{ parameters.until }}",
+		  "since": "{{ parameters.since }}",
+		  "limit": "{{ parameters.limit }}",
+		  "__paging_token": "{{ parameters.paging_token }}",
 		  "with": {
 			"value": "{{ parameters.with }}"
 		  }
 		}
 	  }
 	},
-	"UserBusinessActivities": {
+	"UserFeedRaw": {
 	  "GET": {
 		"method": "GET",
+		"scopes": [
+		  "user_posts"
+		],
 		"route": {
 		  "data": "",
-		  "path": "/me/business_activities"
+		  "path": "/me/feed"
 		},
 		"parameters": {
-		  "business": {
-			"value": "{{ parameters.business }}"
-		  },
-		  "offset": {
-			"value": "{{ parameters.offset }}"
-		  },
-		  "until": {
-			"value": "{{ parameters.until }}"
-		  },
-		  "since": {
-			"value": "{{ parameters.since }}"
-		  },
-		  "before": {
-			"value": "{{ parameters.before }}"
-		  },
-		  "after": {
-			"value": "{{ parameters.after }}"
-		  },
-		  "limit": {
-			"value": "{{ parameters.limit }}"
+		  "until": "{{ parameters.until }}",
+		  "since": "{{ parameters.since }}",
+		  "limit": "{{ parameters.limit }}",
+		  "__paging_token": "{{ parameters.paging_token }}",
+		  "with": {
+			"value": "{{ parameters.with }}"
 		  }
-		}
-	  }
-	},
-	"UserOutbox": {
-	  "GET": {
-		"method": "GET",
-		"route": {
-		  "data": "",
-		  "path": "/me/outbox"
-		}
-	  }
-	},
-	"UserConversations": {
-	  "GET": {
-		"method": "GET",
-		"route": {
-		  "data": "data",
-		  "path": "/me/conversations"
 		}
 	  }
 	}

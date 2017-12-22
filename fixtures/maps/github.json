@@ -1,24 +1,57 @@
 {
   "version": "1.0",
-
-  "name": "GitHub Issues (BitScoop Alexa Demo)",
+  "name": "Github",
+  "description": "Collaborative code development service.",
   "url": "https://api.github.com",
-
+  "tags": [
+    "collaboration",
+    "development",
+    "productivity"
+  ],
+  "auth": {
+    "type": "oauth2",
+    "redirect_url": "https://github.com",
+    "authorization_url": "https://github.com/login/oauth/authorize",
+    "access_token": "https://github.com/login/oauth/access_token",
+    "signature": "parameter",
+    "auth_key": "***INSERT AUTH KEY HERE***",
+    "auth_secret": "*** INSERT AUTH SECRET HERE***"
+  },
+  "meta": {
+    "uniqueness_location": "login",
+    "default_name_location": "login",
+    "endpoint": {
+      "method": "GET",
+      "route": {
+        "data": "",
+        "path": "user"
+      },
+      "model": {
+        "key": "login",
+        "fields": {
+          "login": "string"
+        }
+      }
+    }
+  },
   "endpoints": {
-    "Issues": {
+    "Events": {
       "GET": {
         "method": "GET",
-        "route": "/repos/{{ parameters.user }}/{{ parameters.repo }}/issues",
+        "scopes": [
+          "repo:status"
+        ],
         "parameters": {
-          "per_page": 100
+          "page": {
+            "description": "The page number for the endpoint",
+            "value": "{{ parameters.page }}"
+          }
         },
-        "model": {
-          "key": "id",
-          "fields": {
-            "id": "integer",
-            "number": "integer",
-            "url": "string",
-            "repository_url": "string"
+        "single": false,
+        "collection": {
+          "route": {
+            "data": "",
+            "path": "users/{{ connection.metadata.login }}/events"
           }
         }
       }

@@ -1,0 +1,49 @@
+{
+  "version": "1.0",
+  "url": "https://api.dribbble.com/v1",
+  "name": "Dribbble v1",
+  "auth": {
+	"type": "oauth2",
+	"redirect_url": "https://dribbble.com",
+	"authorization_url": "https://dribbble.com/oauth/authorize",
+	"access_token": "https://dribbble.com/oauth/token",
+	"signature": "parameter",
+	"auth_key": "***INSERT AUTH KEY HERE***",
+	"auth_secret": "***INSERT AUTH SECRET HERE***"
+  },
+  "endpoints": {
+	"UserLikes": {
+	  "GET": {
+		"method": "GET",
+		"single": false,
+		"route": "/user/likes",
+		"parameters": {
+		  "page": "{{ parameters.page }}",
+		  "per_page": "{{ parameters.per_page }}"
+		}
+	  }
+	},
+	"UserProjects": {
+	  "GET": {
+		"method": "GET",
+		"single": false,
+		"route": "/user/projects",
+		"parameters": {
+		  "page": "{{ parameters.page }}",
+		  "per_page": "{{ parameters.per_page }}"
+		}
+	  }
+	},
+	"UserShots": {
+	  "GET": {
+		"method": "GET",
+		"single": false,
+		"route": "/user/shots",
+		"parameters": {
+		  "page": "{{ parameters.page }}",
+		  "per_page": "{{ parameters.per_page }}"
+		}
+	  }
+	}
+  }
+}
