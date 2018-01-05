@@ -1,4 +1,4 @@
-## BitScoop Integration of Brix data sources
+## BitScoop Integration of Social data sources
 
 This application is made up of three major components: the Front-End, the Generator, and the Worker.
 
